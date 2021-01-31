@@ -1,4 +1,143 @@
-<p>admin works!</p>
-<div class="btn btn-primary">HOLA</div>
-<div class="btn btn-primary">CHAO</div>
-<div class="btn btn-primary">AQUI</div>
+<div class="limites">
+    <!-- Tabs navs -->
+        <ul class="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist">
+            <li class="nav-item color_barra" role="presentation">
+            <a class="nav-link active" id="ex3-tab-1" data-mdb-toggle="tab" href="#ex3-tabs-1" role="tab" aria-controls="ex3-tabs-1" aria-selected="true">Dashboard</a>
+            </li>
+            <li class="nav-item color_barra " role="presentation">
+            <a class="nav-link" id="ex3-tab-2" data-mdb-toggle="tab" href="#ex3-tabs-2" role="tab" aria-controls="ex3-tabs-2" aria-selected="false">Configuración</a>
+            </li>
+            <li class="nav-item color_barra" role="presentation">
+            <a class="nav-link" id="ex3-tab-3" data-mdb-toggle="tab" href="#ex3-tabs-3" role="tab" aria-controls="ex3-tabs-3" aria-selected="false">Notificaciones</a >
+            </li>
+        </ul>
+    <!-- Tabs navs -->
+  
+    <!-- Tabs content -->
+    <div class="tab-content" id="ex2-content">
+        <!-- Vista del Dashboard -->
+        <div class="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel" aria-labelledby="ex3-tab-1">
+            <div class="container">
+                <p>AQUI DASHBOARD</p>
+            </div>
+        </div>
+        <!-- Fin vista del Dashboard -->
+        <!-- Vista de la Configuración -->
+        <div class="tab-pane fade" id="ex3-tabs-2" role="tabpanel" aria-labelledby="ex3-tab-2">
+            <div class="container">
+               <div class="row">
+                   <!-- DATOS DEL ADMINISTRADOR -->
+                   <div class="col-md-6 elemento rounded ">
+                        <h4 class="text-center" style="padding-top: 4%;">Datos del Administrador</h4>
+                        <br>
+                            <!-- Nombre Completo -->
+                            <div class="row">
+                                <div class="col-md-5 sangria"><h6>Nombre Completo:</h6></div>
+                                <div class="col-md-7 text-center"><label for="">AQUI_NOMBRE</label></div>
+                            </div>
+                            <!-- N° de cedula -->
+                            <div class="row interlineado">
+                                <div class="col-md-5 sangria"><h6>N° de Cédula:</h6></div>
+                                <div class="col-md-7 text-center"><label for="">AQUI_CEDULA</label></div>
+                            </div>
+                            <!-- Fecha de nacimiento -->
+                            <div class="row interlineado">
+                                <div class="col-md-5 sangria"><h6>Fecha de Nacimiento:</h6></div>
+                                <div class="col-md-7 text-center"><label for="">AQUI_FECHA</label></div>
+                            </div>
+                            <!-- Correo Electronico -->
+                            <div class="row interlineado">
+                                <div class="col-md-5 sangria"><h6>Correo Electrónico:</h6></div>
+                                <div class="col-md-7 text-center"><label for="">AQUI_CORREO</label></div>
+                            </div>
+                            <!-- Numero de telefono -->
+                            <div class="row interlineado">
+                                <div class="col-md-5 sangria"><h6>Número de Teléfono:</h6></div>
+                                <div class="col-md-7 text-center"><label for="">AQUI_TELEFONO</label></div>
+                            </div>
+                            <!-- Domicilio -->
+                            <div class="row interlineado">
+                                <div class="col-md-5 sangria"><h6>Domicilio:</h6></div>
+                                <div class="col-md-7 text-center"><label for="">AQUI_DOMICILIO</label></div>
+                            </div>
+                        <hr>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-primary btn-block interlineado" data-mdb-ripple-color="dark" data-mdb-toggle="modal" data-mdb-target="#staticBackdrop"> Actualizar </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-mdb-backdrop="static"  data-mdb-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Actualización de Datos Personales</h5>
+                                        <!-- <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button> -->
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <!-- Grid de 2 columnas para NOMBRE y APELLIDO -->
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                    <div class="form-outline sombreado rounded">
+                                                        <input type="text" id="form6Example1" class="form-control" />
+                                                        <label class="form-label" for="form6Example1">Nombre</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-outline sombreado rounded">
+                                                        <input type="text" id="form6Example2" class="form-control" />
+                                                        <label class="form-label" for="form6Example2">Apellido</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Number input -->
+                                            <div class="form-outline mb-4 sombreado rounded">
+                                                <input type="number" id="form6Example3" class="form-control" />
+                                                <label class="form-label" for="form6Example3">N° de Cédula</label>
+                                            </div>
+                                            <!-- Date input -->
+                                            <div class="form-outline mb-4 sombreado rounded">
+                                                <input type="date" id="form6Example4" class="form-control" />
+                                                <label class="form-label" for="form6Example4">_____________ - Fecha de Nacimiento</label>
+                                            </div>
+                                            <!-- Email input -->
+                                            <div class="form-outline mb-4 sombreado rounded">
+                                                <input type="email" id="form6Example5" class="form-control" />
+                                                <label class="form-label" for="form6Example5">Correo Electrónico</label>
+                                            </div>
+                                            <!-- Number input -->
+                                             <div class="form-outline mb-4 sombreado rounded">
+                                                <input type="number" id="form6Example6" class="form-control" />
+                                                <label class="form-label" for="form6Example6">Número de Teléfono</label>
+                                            </div>
+                                            <!-- Message input -->
+                                            <div class="form-outline mb-4 sombreado rounded">
+                                                <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+                                                <label class="form-label" for="form6Example7">Domicilio</label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Salir</button>
+                                        <button type="button" class="btn btn-success">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN DATOS DEL ADMINISTRADOR -->
+                    <div class="col-md-6 elemento rounded">
+                        <h4 class="text-center" style="padding-top: 4%;">Funciones de la aplicación</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Vista de la Configuración -->
+        <!-- Vista de Notificaciones -->
+        <div class="tab-pane fade" id="ex3-tabs-3" role="tabpanel" aria-labelledby="ex3-tab-3">Tab 3 content</div>
+        <!-- Fin Vista de Notificaciones -->
+    </div>
+    <!-- Tabs content -->
+</div>
+ 
+
+
+  
