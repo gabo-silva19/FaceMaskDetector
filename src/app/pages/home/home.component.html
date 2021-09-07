@@ -5,16 +5,16 @@
             <div class="text-white">
             <h1 class="mb-3">Bienvenido a FaceMask Detector</h1>
             <h5 class="mb-4">La mejor manera de prevenir el COVID-19 en tu empresa</h5>
-            <a class="btn btn-outline-light btn-lg m-2"
-                href="https://www.youtube.com/watch?v=c9B4TPnak1A"
+            <button class="btn btn-outline-light btn-lg m-2"
+                (click)="open()"
                 role="button"
                 rel="nofollow"
                 target="_blank"
-                >¿Qué hacemos?</a>
-            <a class="btn btn-outline-light btn-lg m-2"
-                href="/login"
+                >¿Qué hacemos?</button>
+            <button class="btn btn-outline-light btn-lg m-2"
+                [routerLink]="['/login']"
                 role="button"
-                >Iniciar Sesión</a>
+                >Iniciar Sesión</button>
             </div>
         </div>
     </div>
