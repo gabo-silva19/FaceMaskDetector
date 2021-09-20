@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 import { Router } from '@angular/router';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 
@@ -26,6 +25,10 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
+    }
+
+    if (this.isLoggedIn === true) {
+      this.router.navigate(['/user-profile']);
     }
   }
 

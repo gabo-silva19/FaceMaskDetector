@@ -1,5 +1,10 @@
-<app-header></app-header>
+<app-header *ngIf="rout.url != '/admin-board'"></app-header>
 <div class="h-25 arriba">
     <router-outlet></router-outlet>
 </div>
-<app-footer></app-footer>
+<app-footer *ngIf="rout.url != '/admin-board'"></app-footer>
+
+
+<!--
+  *ngIf="!rout.url.includes('/admin-board/**')"  
+-->
