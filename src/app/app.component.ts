@@ -8,11 +8,9 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'FacaMaskDTor';
-  // rout: Router;
   rout: Router;
 
   constructor(private router: Router){
-    // this.rout = router;
     this.rout = router;
 }
 }
