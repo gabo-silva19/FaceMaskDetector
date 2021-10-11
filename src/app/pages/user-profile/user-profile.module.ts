@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChartsModule } from 'ng2-charts';
 
 import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { UserProfileComponent } from './user-profile.component';
@@ -9,7 +10,8 @@ import { UserProfileComponent } from './user-profile.component';
   declarations: [UserProfileComponent],
   imports: [
     CommonModule,
-    UserProfileRoutingModule
+    UserProfileRoutingModule,
+    ChartsModule
   ]
 })
 export class UserProfileModule { }

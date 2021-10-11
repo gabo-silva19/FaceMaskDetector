@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable, timer } from 'rxjs';
+import { retry, share, switchMap, tap } from 'rxjs/operators';
 
-const authRoute = 'http://127.0.0.1:5000/auth/';
+import { Historial } from 'src/models/historial.model';
+
+const streamDataRoute = 'http://127.0.0.1:5000/get_stream_info';
+const sendStreamDataRoute = 'http://127.0.0.1:5000/historiales/save_history';
+const getDaily = 'http://127.0.0.1:5000/historiales/get_daily_fault';
+const getCountFaults = 'http://127.0.0.1:5000/historiales/fault_count';
 
 
 @Injectable({
@@ -10,19 +16,39 @@ const authRoute = 'http://127.0.0.1:5000/auth/';
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  private streamData$: Observable<Historial>;
 
-  getPublicContent(): Observable<any> {
-    return this.http.get(authRoute + 'all', { responseType: 'text' });
+
+  constructor(private http: HttpClient) {
+    this.streamData$ = timer(0, 5000).pipe(
+      switchMap(() => this.http.get<Historial>(streamDataRoute)),
+      retry(),
+      tap(console.log),
+      share()
+    );
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(authRoute + 'user', { responseType: 'text' });
+  getStreamData(): Observable<Historial>{
+    return this.streamData$.pipe(
+      tap(() => console.log('Data sent to subscriber'))
+    );
   }
 
-  getAdminBoard(): Observable<any> {
-    return this.http.get(authRoute + 'admin', { responseType: 'text' });
+  sendStreamData(history: Historial): Observable<any>{
+    return this.http.post(sendStreamDataRoute, {
+      id: history.id,
+      ci_e: history.ci_e,
+      modo_uso: history.modo_uso,
+      fecha: history.fecha
+    });
   }
 
+  getInfoPie(ci: string) {
+    return this.http.get(getDaily + '/' + ci);
+  }
+
+  getInfoBar(ci: string) {
+    return this.http.get(getCountFaults + '/' + ci);
+  }
 
 }
