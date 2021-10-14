@@ -75,8 +75,16 @@ export class UserProfileComponent implements OnInit {
 
     }else{
       this.isActive = false;
-      this.video.stop_feed(ci);
+      this.stopStream(ci);
+
     }
+  }
+
+  // Apagar stream
+  stopStream(ci: any): void{
+    this.video.stop_feed(ci).subscribe(data => {
+      console.log('Stopping');
+    });
   }
 
   callSendStreamData(history: Historial): void {
