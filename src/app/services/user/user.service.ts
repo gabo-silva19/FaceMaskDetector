@@ -18,7 +18,6 @@ export class UserService {
 
   private streamData$: Observable<Historial>;
 
-
   constructor(private http: HttpClient) {
     this.streamData$ = timer(0, 5000).pipe(
       switchMap(() => this.http.get<Historial>(streamDataRoute)),
@@ -34,6 +33,24 @@ export class UserService {
     );
   }
 
+  getInfoPie(ci: string) {
+    // return this.http.get(getDaily + '/' + ci);
+    return timer(0, 10000).pipe(
+      switchMap(() => this.http.get(getDaily + '/' + ci)),
+      retry(),
+      share()
+    );
+  }
+
+  getInfoBar(ci: string) {
+    // return this.http.get(getCountFaults + '/' + ci);
+    return timer(0, 10000).pipe(
+      switchMap(() => this.http.get(getCountFaults + '/' + ci)),
+      retry(),
+      share()
+    );
+  }
+
   sendStreamData(history: Historial): Observable<any>{
     return this.http.post(sendStreamDataRoute, {
       id: history.id,
@@ -42,13 +59,4 @@ export class UserService {
       fecha: history.fecha
     });
   }
-
-  getInfoPie(ci: string) {
-    return this.http.get(getDaily + '/' + ci);
-  }
-
-  getInfoBar(ci: string) {
-    return this.http.get(getCountFaults + '/' + ci);
-  }
-
 }

@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminBoardComponent } from './admin-board.component';
 
 import { DashboardComponent } from '../admin-pages/dashboard/dashboard.component';
+import { EmpleadosComponent } from '../admin-pages/empleados/empleados.component';
+import { NotificacionesComponent } from '../admin-pages/notificaciones/notificaciones.component';
+
 
 const routes: Routes = [
   {
@@ -13,6 +16,14 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
       },
+      {
+        path: 'empleados',
+        component: EmpleadosComponent
+      },
+      {
+        path: 'notificaciones',
+        component: NotificacionesComponent
+      }
     ]
   },
 ];

@@ -49,30 +49,11 @@
                           aria-expanded="false"
                         >
                             <i class="fas fa-bell fa-lg"></i>
-                            <span class="badge rounded-pill badge-notification bg-danger">12</span>
+                            <span class="badge rounded-pill badge-notification bg-danger" *ngIf="numNotif > 0">{{numNotif}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="#">Some news</a></li>
                             <li><a class="dropdown-item" href="#">Another news</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <!-- PROFILE_CONFIG -->
-                    <li class="nav-item me-3 me-lg-0 dropdown" *ngIf="isLoggedIn">
-                        <a
-                          class="nav-link dropdown-toggle"
-                          href="#"
-                          id="navbarDropdown"
-                          role="button"
-                          data-mdb-toggle="dropdown"
-                          aria-expanded="false"
-                        >
-                          <i class="fas fa-user"></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider" /></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>

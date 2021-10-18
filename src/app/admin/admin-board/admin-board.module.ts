@@ -6,13 +6,17 @@ import { AdminBoardComponent } from './admin-board.component';
 
 import { SidebarComponent } from 'src/app/sidebar/sidebar.component';
 import { DashboardComponent } from '../admin-pages/dashboard/dashboard.component';
+import { EmpleadosComponent } from '../admin-pages/empleados/empleados.component';
+import { NotificacionesComponent } from '../admin-pages/notificaciones/notificaciones.component';
 
 
 @NgModule({
   declarations: [
     AdminBoardComponent,
     SidebarComponent,
-    DashboardComponent
+    DashboardComponent,
+    EmpleadosComponent,
+    NotificacionesComponent
   ],
   imports: [
     CommonModule,

@@ -101,8 +101,14 @@ export class UserProfileComponent implements OnInit {
 
   addToPie() {
     this.userService.getInfoPie(this.currentUser.ci).subscribe((data: any) => {
-      this.pieChartData[0] = data.cumplimientos;
-      this.pieChartData[1] = data.faltas;
+      this.pieChartData = [];
+
+      const dc = data.cumplimientos;
+      const df = data.faltas;
+
+      this.pieChartData.push(dc);
+      this.pieChartData.push(df);
+
     });
 
   }

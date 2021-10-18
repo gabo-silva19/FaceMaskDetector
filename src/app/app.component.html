@@ -1,7 +1,13 @@
-<app-header *ngIf="!(rout.url === '/admin-board' || rout.url === '/admin-board/dashboard')"></app-header>
+<app-header *ngIf="!(rout.url === '/admin-board' || 
+    rout.url === '/admin-board/dashboard' || 
+    rout.url === '/admin-board/empleados' ||
+    rout.url === '/admin-board/notificaciones')"></app-header>
 <div class="h-25 arriba">
     <router-outlet></router-outlet>
 </div>
-<app-footer *ngIf="!(rout.url === '/admin-board' || rout.url === '/admin-board/dashboard')"></app-footer>
+<app-footer *ngIf="!(rout.url === '/admin-board' || 
+    rout.url === '/admin-board/dashboard' ||
+    rout.url === '/admin-board/empleados' ||
+    rout.url === '/admin-board/notificaciones')"></app-footer>
  
 
