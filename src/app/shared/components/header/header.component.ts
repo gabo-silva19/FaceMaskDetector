@@ -10,8 +10,6 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   isLoggedIn = false;
-  notifications = [];
-  numNotif = 0;
 
   constructor(private tokenStorage: TokenStorageService, private router: Router) {}
 
@@ -20,7 +18,6 @@ export class HeaderComponent implements OnInit {
       this.isLoggedIn = true;
     }
 
-    this.numNotif = this.notifications.length;
   }
 
   logOut(): void {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChartsModule } from 'ng2-charts';
 
 import { AdminBoardRoutingModule } from './admin-board-routing.module';
 import { AdminBoardComponent } from './admin-board.component';
@@ -20,7 +21,8 @@ import { NotificacionesComponent } from '../admin-pages/notificaciones/notificac
   ],
   imports: [
     CommonModule,
-    AdminBoardRoutingModule
+    AdminBoardRoutingModule,
+    ChartsModule
   ]
 })
 export class AdminBoardModule { }

@@ -12,4 +12,9 @@ export class EmpleadosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  searchEmployees(){
+
+  }
+
 }
+

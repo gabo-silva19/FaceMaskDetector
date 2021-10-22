@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color } from 'ng2-charts';
 import { Observable } from 'rxjs';
+import {
+  DialogLayoutDisplay,
+  ToastNotificationInitializer,
+  ToastUserViewTypeEnum
+} from '@costlydeveloper/ngx-awesome-popup';
 
 
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
@@ -62,6 +67,8 @@ export class UserProfileComponent implements OnInit {
     this.loggedOut = this.tokenStorage.signOut();
     this.addToPie();
     this.addToBar();
+    this.toastNotification();
+
   }
 
   // Encender y apagar stream
@@ -133,6 +140,20 @@ export class UserProfileComponent implements OnInit {
     });
 
   }
+
+  // Notificaciones push
+  toastNotification() {
+    const newToastNotification = new ToastNotificationInitializer();
+    newToastNotification.setTitle('¡Cuidado!');
+    newToastNotification.setMessage('Form is not valid!');
+
+    newToastNotification.setConfig({
+        LayoutType: DialogLayoutDisplay.DANGER,
+        ToastUserViewType: ToastUserViewTypeEnum.STANDARD
+    });
+
+    newToastNotification.openToastNotification$();
+}
 
 
 

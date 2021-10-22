@@ -2,7 +2,7 @@
     rout.url === '/admin-board/dashboard' || 
     rout.url === '/admin-board/empleados' ||
     rout.url === '/admin-board/notificaciones')"></app-header>
-<div class="h-25 arriba">
+<div class="arriba">
     <router-outlet></router-outlet>
 </div>
 <app-footer *ngIf="!(rout.url === '/admin-board' || 

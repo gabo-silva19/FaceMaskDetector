@@ -1,1 +1,93 @@
+<div class="position">
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <img
+                  class="card-img-top"
+                  src="../../../../assets/img/encabezado-tarjeta3.png"
+                  alt=""
+                  loading="lazy"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Dashboard</h5>
+                    <p class="card-text">Indicadores de desempeño y empleados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col col-7 m-right">
+            <div class="card shadow-sm ">
+                <div class="card-body d-flex justify-content-center">
+                    <canvas baseChart
+                    [datasets]="lineChartData" 
+                    [labels]="lineChartLabels" 
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors" 
+                    [legend]="lineChartLegend" 
+                    [chartType]="lineChartType" 
+                    [plugins]="lineChartPlugins"
+                    height="400"
+                    width="600">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col col-4">
+            <div class="card shadow-sm">
+                <div class="card-body d-flex justify-content-center">
+                    <canvas baseChart 
+                    [data]="pieChartData" 
+                    [labels]="pieChartLabels" 
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    [colors]="pieChartColors" 
+                    [plugins]="pieChartPlugins"
+                    [legend]="pieChartLegend"
+                    height="375"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---->
+    <div class="row">
+        <div class="col col-12 m-right mt-4">
+            <div class="card shadow-sm ">
+                <div class="card-body d-flex justify-content-center">
+                    <canvas baseChart 
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [colors]="barChartColors"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!---->
+    <div class="row mt-4">
+        <div class="col col-12">
+            <table class="table table-bordered bg-light table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Cédula</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Departamento</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
