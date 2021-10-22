@@ -80,11 +80,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr *ngFor = "let e of employees">
+                        <td>{{e["ci"]}}</td>
+                        <td>{{e["nombre"]}}</td>
+                        <td>{{e["depto"]}}</td>
+                        <td>{{e["estado"]}}</td>
                     </tr>
                 </tbody>
             </table>

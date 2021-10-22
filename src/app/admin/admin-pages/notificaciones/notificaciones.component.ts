@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   ToastNotificationInitializer,
   DialogLayoutDisplay,
@@ -7,6 +8,10 @@ import {
   ToastPositionEnum,
 } from '@costlydeveloper/ngx-awesome-popup';
 
+import { UserService } from 'src/app/services/user/user.service';
+import { Historial } from 'src/models/historial.model';
+
+
 @Component({
   selector: 'app-notificaciones',
   templateUrl: './notificaciones.component.html',
@@ -14,17 +19,30 @@ import {
 })
 export class NotificacionesComponent implements OnInit {
 
-  constructor() { }
+  // General
+  streamData$: Observable<Historial>;
+  default = 'Tapabocas en uso';
+
+
+  constructor(private userService: UserService) {
+    this.streamData$ = this.userService.getStreamData();
+
+   }
 
   ngOnInit(): void {
-    this.toastNotification();
+    this.streamData$.subscribe(async (history: Historial) => {
+      this.default = history.modo_uso;
+      if (this.default !== 'Tapabocas en uso'){
+        this.toastNotification(history.ci_e);
+      }
+    });
   }
 
-  toastNotification() {
+  toastNotification(ci: any) {
     const newToastNotification = new ToastNotificationInitializer();
 
-    newToastNotification.setTitle('Title');
-    newToastNotification.setMessage('Your message!');
+    newToastNotification.setTitle('¡Alerta!');
+    newToastNotification.setMessage('El empleado: ' + ci.toString() + ' no está haciendo uso correcto del tapabocas');
 
     // Choose layout color type
     newToastNotification.setConfig({

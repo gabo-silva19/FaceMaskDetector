@@ -18,8 +18,13 @@
     <div class="row mt-4 d-flex justify-content-center">
         <div class="column col-5 d-flex justify-content-center">
             <div class="input-group rounded">
-                <input type="search" id="search-employee" class="form-control rounded" placeholder="Buscar empleados" aria-label="Search"
-                aria-describedby="search-addon" />
+                <input type="search" 
+                    class="form-control rounded" 
+                    placeholder="Buscar empleados" 
+                    aria-label="Search"
+                    aria-describedby="search-addon"
+                    #box
+                    (keyup.enter)="searchEmployees(box.value)"/>
                 <span class="input-group-text border-0" id="search-addon">
                   <i class="fas fa-search"></i>
                 </span>
@@ -38,11 +43,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr *ngFor = "let e of employees">
+                        <td>{{e.ci}}</td>
+                        <td>{{e.nombre}}</td>
+                        <td>{{e.depto}}</td>
+                        <td>{{e.estado}}</td>
                     </tr>
                 </tbody>
             </table>

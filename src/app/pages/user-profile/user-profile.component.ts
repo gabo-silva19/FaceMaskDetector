@@ -23,6 +23,7 @@ import { Historial } from 'src/models/historial.model';
 })
 
 export class UserProfileComponent implements OnInit {
+
   // General
   currentUser: any;
   loggedOut: any;
@@ -31,30 +32,30 @@ export class UserProfileComponent implements OnInit {
   streamData$: Observable<Historial>;
 
   // Gráfico de torta
+  pieChartType: ChartType = 'pie';
+  pieChartData: SingleDataSet = [];
+  pieChartLabels: Label[] = ['Cumplimientos', 'Faltas'];
   pieChartOptions: ChartOptions = {
     responsive: false,
   };
-  pieChartLabels: Label[] = ['Cumplimientos', 'Faltas'];
-  pieChartData: SingleDataSet = [];
-  pieChartType: ChartType = 'pie';
   pieChartLegend = true;
   pieChartPlugins = [];
   pieChartColors: Color[] = [
     {backgroundColor: ['rgba(245, 177, 132, 1)', 'rgba(132, 245, 183, 1)']}
   ];
 
-  // Gráfico de barras
-  barChartOptions: ChartOptions = {
-    responsive: false,
-  };
-  barChartLabels: Label[] = [];
+  // Gráfico de barra
   barChartType: ChartType = 'bar';
-  barChartLegend = true;
-  barChartPlugins = [];
   barChartData: ChartDataSets[] = [
     {data: [], label: 'Faltas por día' },
     {data: [], label: 'Cumplimientos por día'}
   ];
+  barChartLabels: Label[] = [];
+  barChartOptions: ChartOptions = {
+    responsive: false,
+  };
+  barChartLegend = true;
+  barChartPlugins = [];
 
   constructor(private tokenStorage: TokenStorageService, private video: VideoStreamService, private userService: UserService) {
     monkeyPatchChartJsTooltip();
@@ -67,11 +68,9 @@ export class UserProfileComponent implements OnInit {
     this.loggedOut = this.tokenStorage.signOut();
     this.addToPie();
     this.addToBar();
-    this.toastNotification();
-
   }
 
-  // Encender y apagar stream
+  // Manejo de la captura de video
   manageStream(ci: any): void {
     if (this.isActive === false){
       this.isActive = true;
@@ -87,13 +86,14 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  // Apagar stream
+  // Detener captura de video
   stopStream(ci: any): void{
     this.video.stop_feed(ci).subscribe(data => {
       console.log('Stopping');
     });
   }
 
+  // Obtener información de la captura de video y guardarla en base de datos
   callSendStreamData(history: Historial): void {
     this.userService.sendStreamData(history).subscribe(data => {
       console.log('Success');
@@ -103,9 +103,14 @@ export class UserProfileComponent implements OnInit {
   callStreamData() {
     this.streamData$.subscribe(async (history: Historial) => {
       this.callSendStreamData(history);
+
+      if (history.modo_uso !== 'Tapabocas en uso'){
+        this.toastNotification();
+      }
     });
   }
 
+  // Añadir datos al gráfico de tortas
   addToPie() {
     this.userService.getInfoPie(this.currentUser.ci).subscribe((data: any) => {
       this.pieChartData = [];
@@ -117,9 +122,9 @@ export class UserProfileComponent implements OnInit {
       this.pieChartData.push(df);
 
     });
-
   }
 
+  // Añadir datos al gráfico de barras
   addToBar() {
     this.userService.getInfoBar(this.currentUser.ci).subscribe((data: any) => {
       this.barChartData[0].data = [];
@@ -136,16 +141,14 @@ export class UserProfileComponent implements OnInit {
       for (let f of df){
         this.barChartData[0].data?.push(f.modo);
       }
-
     });
-
   }
 
   // Notificaciones push
   toastNotification() {
     const newToastNotification = new ToastNotificationInitializer();
     newToastNotification.setTitle('¡Cuidado!');
-    newToastNotification.setMessage('Form is not valid!');
+    newToastNotification.setMessage('Recuerda hacer uso correcto del tapabocas');
 
     newToastNotification.setConfig({
         LayoutType: DialogLayoutDisplay.DANGER,
@@ -153,9 +156,7 @@ export class UserProfileComponent implements OnInit {
     });
 
     newToastNotification.openToastNotification$();
-}
-
-
+  }
 
 }
 
