@@ -33,15 +33,17 @@ export class NotificacionesComponent implements OnInit {
     this.streamData$.subscribe(async (history: Historial) => {
       this.default = history.modo_uso;
       if (this.default !== 'Tapabocas en uso'){
-        this.toastNotification(history.ci_e);
+        this.toastNotification(history.ci_e, history.fecha);
       }
     });
   }
 
-  toastNotification(ci: any) {
+  toastNotification(ci: any, fecha: any) {
     const newToastNotification = new ToastNotificationInitializer();
 
-    newToastNotification.setTitle('¡Alerta!');
+    const hour = fecha;
+
+    newToastNotification.setTitle('¡Alerta! ' + hour.toString());
     newToastNotification.setMessage('El empleado: ' + ci.toString() + ' no está haciendo uso correcto del tapabocas');
 
     // Choose layout color type

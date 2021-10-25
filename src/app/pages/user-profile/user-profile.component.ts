@@ -8,7 +8,6 @@ import {
   ToastUserViewTypeEnum
 } from '@costlydeveloper/ngx-awesome-popup';
 
-
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 import { VideoStreamService } from 'src/app/services/video-stream/video-stream.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -34,7 +33,7 @@ export class UserProfileComponent implements OnInit {
   // Gráfico de torta
   pieChartType: ChartType = 'pie';
   pieChartData: SingleDataSet = [];
-  pieChartLabels: Label[] = ['Cumplimientos', 'Faltas'];
+  pieChartLabels: Label[] = ['Uso correcto', 'Uso incorrecto'];
   pieChartOptions: ChartOptions = {
     responsive: false,
   };
@@ -47,8 +46,9 @@ export class UserProfileComponent implements OnInit {
   // Gráfico de barra
   barChartType: ChartType = 'bar';
   barChartData: ChartDataSets[] = [
-    {data: [], label: 'Faltas por día' },
-    {data: [], label: 'Cumplimientos por día'}
+    { data: [], label: 'Incumplimientos de uso por día' },
+    { data: [], label: 'Cumplimientos de uso por día' },
+    { data: [], label: 'Límite de incumplimientos dirario*', type: 'line' }
   ];
   barChartLabels: Label[] = [];
   barChartOptions: ChartOptions = {
@@ -100,10 +100,9 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  callStreamData() {
+  callStreamData(): void {
     this.streamData$.subscribe(async (history: Historial) => {
       this.callSendStreamData(history);
-
       if (history.modo_uso !== 'Tapabocas en uso'){
         this.toastNotification();
       }
@@ -111,7 +110,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   // Añadir datos al gráfico de tortas
-  addToPie() {
+  addToPie(): void {
     this.userService.getInfoPie(this.currentUser.ci).subscribe((data: any) => {
       this.pieChartData = [];
 
@@ -125,10 +124,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   // Añadir datos al gráfico de barras
-  addToBar() {
+  addToBar(): void {
     this.userService.getInfoBar(this.currentUser.ci).subscribe((data: any) => {
       this.barChartData[0].data = [];
       this.barChartData[1].data = [];
+      this.barChartData[2].data = [];
       this.barChartLabels = [];
 
       const dc = data.cumplimientos;
@@ -137,15 +137,17 @@ export class UserProfileComponent implements OnInit {
       for (let c of dc){
         this.barChartLabels.push(c.fecha);
         this.barChartData[1].data?.push(c.modo);
+        this.barChartData[2].data.push(10);
       }
       for (let f of df){
         this.barChartData[0].data?.push(f.modo);
+        this.barChartData[2].data.push(10);
       }
     });
   }
 
   // Notificaciones push
-  toastNotification() {
+  toastNotification(): void {
     const newToastNotification = new ToastNotificationInitializer();
     newToastNotification.setTitle('¡Cuidado!');
     newToastNotification.setMessage('Recuerda hacer uso correcto del tapabocas');
@@ -154,8 +156,16 @@ export class UserProfileComponent implements OnInit {
         LayoutType: DialogLayoutDisplay.DANGER,
         ToastUserViewType: ToastUserViewTypeEnum.STANDARD
     });
-
+    this.playSound();
     newToastNotification.openToastNotification$();
+  }
+
+  // Sonido notificación
+  playSound(): void {
+    const notifSound = new Audio();
+    notifSound.src = '../assets/sounds/alert.mp3';
+    notifSound.load();
+    notifSound.play();
   }
 
 }

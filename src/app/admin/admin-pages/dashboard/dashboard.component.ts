@@ -10,14 +10,10 @@ import { AdminService } from 'src/app/services/admin/admin.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  // Empleados
-  employees: any[] = [];
-
   // Gráfico de linea
   lineChartType: ChartType = 'line';
   lineChartData: ChartDataSets[] = [
-    { data: [], label: 'Faltas' },
+    { data: [], label: 'Uso incorrecto' },
   ];
   lineChartLabels: Label[] = [];
   lineChartOptions = {
@@ -37,7 +33,7 @@ export class DashboardComponent implements OnInit {
   public pieChartType: ChartType = 'pie';
 
   public pieChartData: SingleDataSet = [];
-  public pieChartLabels: Label[] = ['Total empleados', 'Total faltas'];
+  public pieChartLabels: Label[] = ['Total empleados', 'Total de usos incorrectos'];
   public pieChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -52,7 +48,7 @@ export class DashboardComponent implements OnInit {
   // Gráfico de barra
   barChartType: ChartType = 'bar';
   barChartData: ChartDataSets[] = [
-    { data: [], label: 'Faltas en la semana ' }
+    { data: [], label: 'Usos incorrectos en la semana ' }
   ];
   barChartLabels: Label[] = [];
   barChartOptions: ChartOptions = {
@@ -66,6 +62,26 @@ export class DashboardComponent implements OnInit {
   barChartLegend = true;
   barChartPlugins = [];
 
+  // Segundo gráfico de barra
+  barChartType2: ChartType = 'bar';
+  barChartData2: ChartDataSets[] = [
+    { data: [], label: 'Cumplientos de uso el día de hoy' },
+    { data: [], label: 'Incumplimientos de uso el día de hoy' }
+  ];
+  barChartLabels2: Label[] = [];
+  barChartOptions2: ChartOptions = {
+    responsive: true,
+  };
+  barChartColors2: Color[] = [
+    {backgroundColor: '#5affce'},
+    {backgroundColor: '#c68af9'}
+  ];
+  barChartLegend2 = true;
+  barChartPlugins2 = [];
+
+  // Tarjetas
+  best = '';
+  worst = '';
 
   constructor(private admin: AdminService) {
     monkeyPatchChartJsTooltip();
@@ -76,11 +92,13 @@ export class DashboardComponent implements OnInit {
     this.addToLine();
     this.addToPie();
     this.addToBar();
-    this.addToEmployees();
+    this.addToBar2();
+    this.addToCards();
+
   }
 
   // Añadir datos al gráfico de linea
-  addToLine() {
+  addToLine(): void {
     this.admin.getRegistry().subscribe((data: any) => {
       this.lineChartLabels = [];
       this.lineChartData[0].data = [];
@@ -94,7 +112,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // Añadir datos al gráfico de torta
-  addToPie() {
+  addToPie(): void {
     this.admin.getTotal().subscribe((data: any) => {
       this.pieChartData = [];
 
@@ -108,7 +126,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // Añadir datos al gráfico de barra
-  addToBar() {
+  addToBar(): void {
     this.admin.getDay().subscribe((data: any) => {
       this.barChartData[0].data = [];
       this.barChartLabels = [];
@@ -121,15 +139,31 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // Añadir datos a la lista de empleados
-  addToEmployees() {
-    this.admin.getEmployess().subscribe((data: any) => {
-      this.employees = [];
+  // Añadir datos al segundo gráfico de barras
+  addToBar2(): void {
+    this.admin.countDaily().subscribe((data: any) => {
+      this.barChartData2[0].data = [];
+      this.barChartData2[1].data = [];
+      this.barChartLabels2 = [];
 
-      const emp = data.users;
-      for (let e of emp ){
-        this.employees.push(e);
+      const dc = data.cumplimientos;
+      const df = data.faltas;
+
+      for (let c of dc){
+        this.barChartLabels2.push(c.name);
+        this.barChartData2[0].data?.push(c.count);
       }
+      for (let f of df){
+        this.barChartData2[1].data?.push(f.count);
+      }
+    });
+  }
+
+  // Añadir a tarjetas
+  addToCards(): void {
+    this.admin.getBestAndWorst().subscribe((data: any) => {
+      this.best = data.best[0].name;
+      this.worst = data.worst[0].name;
     });
   }
 
